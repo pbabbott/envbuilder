@@ -13,10 +13,12 @@ trigger:
 steps:
   - name: run build
     image: golang:1.20
+    volumes:
+      - name: golang_cache
+        path: /tmp/golang_cache
     commands:
-      - ls -al
+      - echo GOPATH $GOPATH
       - ./scripts/build.sh
-      - ls -al
 
   - name: Container Build
     image: plugins/docker
@@ -24,11 +26,12 @@ steps:
       - name: docker_daemon
         path: /var/run/docker.sock
     commands:
-      - ls -al
       - ./scripts/docker-build.sh
-      - ls -al
 
 volumes:
+  - name: golang_cache
+    host:
+      path: /var/lib/cache/golang_cache
   - name: docker_daemon
     host:
       path: /var/run/docker.sock
