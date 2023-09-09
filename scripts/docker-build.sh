@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 docker build -t envbuilder:latest .
 
