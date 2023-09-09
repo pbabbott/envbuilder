@@ -14,4 +14,21 @@ steps:
   - name: run build
     image: golang:1.20
     commands:
+      - ls -al
       - ./scripts/build.sh
+      - ls -al
+
+  - name: Container Build
+    image: plugins/docker
+    volumes:
+      - name: docker_daemon
+        path: /var/run/docker.sock
+    commands:
+      - ls -al
+      - ./scripts/docker-build.sh
+      - ls -al
+
+volumes:
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
