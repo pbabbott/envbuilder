@@ -15,7 +15,7 @@ steps:
     image: golang:1.20
     volumes:
       - name: golang_cache
-        path: /tmp/golang_cache
+        path: /go
     commands:
       - echo GOPATH $GOPATH
       - ./scripts/build.sh
