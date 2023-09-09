@@ -15,7 +15,8 @@ steps:
     image: golang:1.20
     commands:
       - go env | grep -i CACHE
-      - ./scripts/build.sh
+      - cd ./scripts/
+      - ./build.sh
 
   - name: Container Build
     image: plugins/docker
@@ -23,7 +24,8 @@ steps:
       - name: docker_daemon
         path: /var/run/docker.sock
     commands:
-      - docker build -t envbuilder:latest .
+      - cd ./scripts/
+      - ./docker-build.sh
 
 volumes:
   # - name: golang_cache
