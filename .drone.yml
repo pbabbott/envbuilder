@@ -1,0 +1,17 @@
+kind: pipeline
+name: ci
+type: docker
+
+platform:
+  os: linux
+  arch: arm64
+
+trigger:
+  branch:
+    - "*"
+
+steps:
+  - name: run build
+    image: golang:1.20
+    commands:
+      - ./scripts/build.sh
