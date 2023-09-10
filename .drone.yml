@@ -32,7 +32,7 @@ steps:
       mirror: https://registry-mirror.nas.local.abbottland.io
       repo: registry.nas.local.abbottland.io/envbuilder
       auto_tag: true
-      dockerfile: ./Dockerfile
+      dockerfile: ./scripts/Dockerfile
       context: ./scripts/
 
   # - name: Container Build
