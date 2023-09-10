@@ -16,6 +16,8 @@ steps:
     volumes:
       - name: golang_cache
         path: /go/pkg/mod
+      - name: golang_build_cache
+        path: /root/.cache/go-build
     commands:
       - cd ./scripts/
       - ./build.sh
@@ -51,6 +53,9 @@ steps:
   
 
 volumes:
+  - name: golang_build_cache
+    host:
+      path: /var/lib/cache/golang_build_cache
   - name: golang_cache
     host:
       path: /var/lib/cache/golang_cache
