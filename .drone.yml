@@ -10,7 +10,7 @@ trigger:
   branch:
     - main
   ref:
-    exclude:
+    include:
       - refs/tags/*
 
 steps:
