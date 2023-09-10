@@ -8,10 +8,10 @@ platform:
 
 trigger:
   branch:
-    - "*"
+    - main
 
 steps:
-  - name: run build
+  - name: Go build
     image: golang:1.20
     volumes:
       - name: golang_cache
@@ -20,14 +20,35 @@ steps:
       - cd ./scripts/
       - ./build.sh
 
-  - name: Container Build
+  - name: Publish plugin
     image: plugins/docker
-    volumes:
-      - name: docker_daemon
-        path: /var/run/docker.sock
-    commands:
-      - cd ./scripts/
-      - ./docker-build.sh
+    settings:
+      registry: https://registry.nas.local.abbottland.io
+      username: pbabbott
+      password:
+        from_secret: REGISTRY_PASSWORD
+      mirror: https://registry-mirror.nas.local.abbottland.io
+      repo: registry.nas.local.abbottland.io/envbuilder
+      auto_tag: true
+      dockerfile: ./Dockerfile
+      context: ./scripts/
+
+  # - name: Container Build
+  #   image: plugins/docker
+  #   volumes:
+  #     - name: docker_daemon
+  #       path: /var/run/docker.sock
+  #   commands:
+  #     - cd ./scripts/
+  #     - ./docker-build.sh
+
+  # - name: Container Push
+  #   image: plugins/docker
+  #   environment:
+  #     BASE: https://registry.nas.local.abbottland.io
+  #   commands:
+  #     - docker tag envbuilder:latest
+  
 
 volumes:
   - name: golang_cache
