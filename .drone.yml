@@ -9,6 +9,9 @@ platform:
 trigger:
   branch:
     - main
+  ref:
+    exclude:
+      - refs/tags/*
 
 steps:
   - name: Go build
@@ -33,24 +36,7 @@ steps:
       repo: registry.nas.local.abbottland.io/envbuilder
       auto_tag: true
       dockerfile: ./scripts/Dockerfile
-      context: ./scripts/
-
-  # - name: Container Build
-  #   image: plugins/docker
-  #   volumes:
-  #     - name: docker_daemon
-  #       path: /var/run/docker.sock
-  #   commands:
-  #     - cd ./scripts/
-  #     - ./docker-build.sh
-
-  # - name: Container Push
-  #   image: plugins/docker
-  #   environment:
-  #     BASE: https://registry.nas.local.abbottland.io
-  #   commands:
-  #     - docker tag envbuilder:latest
-  
+      context: ./scripts/  
 
 volumes:
   - name: golang_build_cache
